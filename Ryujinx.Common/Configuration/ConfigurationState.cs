@@ -390,6 +390,11 @@ namespace Ryujinx.Configuration
         /// </summary>
         public ReactiveObject<bool> HideCursorOnIdle { get; private set; }
 
+        /// <summary>
+        /// Shows or hides the console
+        /// </summary>
+        public ReactiveObject<bool> ShowConsole { get; private set; }
+
         private ConfigurationState()
         {
             Ui                       = new UiSection();
@@ -401,6 +406,7 @@ namespace Ryujinx.Configuration
             CheckUpdatesOnStart      = new ReactiveObject<bool>();
             ShowConfirmExit          = new ReactiveObject<bool>();
             HideCursorOnIdle         = new ReactiveObject<bool>();
+            ShowConsole              = new ReactiveObject<bool>();
         }
 
         public ConfigurationFileFormat ToFileFormat()
@@ -432,6 +438,7 @@ namespace Ryujinx.Configuration
                 CheckUpdatesOnStart       = CheckUpdatesOnStart,
                 ShowConfirmExit           = ShowConfirmExit,
                 HideCursorOnIdle          = HideCursorOnIdle,
+                ShowConsole               = ShowConsole,
                 EnableVsync               = Graphics.EnableVsync,
                 EnableShaderCache         = Graphics.EnableShaderCache,
                 EnablePtc                 = System.EnablePtc,
@@ -498,6 +505,7 @@ namespace Ryujinx.Configuration
             CheckUpdatesOnStart.Value              = true;
             ShowConfirmExit.Value                  = true;
             HideCursorOnIdle.Value                 = false;
+            ShowConsole.Value                      = true;
             Graphics.EnableVsync.Value             = true;
             Graphics.EnableShaderCache.Value       = true;
             System.EnablePtc.Value                 = true;
@@ -827,6 +835,7 @@ namespace Ryujinx.Configuration
             CheckUpdatesOnStart.Value              = configurationFileFormat.CheckUpdatesOnStart;
             ShowConfirmExit.Value                  = configurationFileFormat.ShowConfirmExit;
             HideCursorOnIdle.Value                 = configurationFileFormat.HideCursorOnIdle;
+            ShowConsole.Value                      = configurationFileFormat.ShowConsole;
             Graphics.EnableVsync.Value             = configurationFileFormat.EnableVsync;
             Graphics.EnableShaderCache.Value       = configurationFileFormat.EnableShaderCache;
             System.EnablePtc.Value                 = configurationFileFormat.EnablePtc;

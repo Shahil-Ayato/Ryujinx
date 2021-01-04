@@ -140,6 +140,11 @@ namespace Ryujinx.Configuration
         public bool HideCursorOnIdle { get; set; }
 
         /// <summary>
+        /// Shows or hides the console
+        /// </summary>
+        public bool ShowConsole { get; set; }
+
+        /// <summary>
         /// Enables or disables Vertical Sync
         /// </summary>
         public bool EnableVsync { get; set; }

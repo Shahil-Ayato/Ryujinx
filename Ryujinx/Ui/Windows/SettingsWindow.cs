@@ -3,6 +3,7 @@ using Ryujinx.Audio.Backends.OpenAL;
 using Ryujinx.Audio.Backends.SoundIo;
 using Ryujinx.Common.Configuration;
 using Ryujinx.Common.Configuration.Hid;
+using Ryujinx.Common.Platform;
 using Ryujinx.Configuration;
 using Ryujinx.Configuration.System;
 using Ryujinx.HLE.FileSystem;
@@ -14,6 +15,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 using GUI = Gtk.Builder.ObjectAttribute;
 
@@ -45,6 +47,7 @@ namespace Ryujinx.Ui.Windows
         [GUI] CheckButton     _checkUpdatesToggle;
         [GUI] CheckButton     _showConfirmExitToggle;
         [GUI] CheckButton     _hideCursorOnIdleToggle;
+        [GUI] CheckButton     _showConsole;
         [GUI] CheckButton     _vSyncToggle;
         [GUI] CheckButton     _shaderCacheToggle;
         [GUI] CheckButton     _ptcToggle;
@@ -193,6 +196,11 @@ namespace Ryujinx.Ui.Windows
                 _hideCursorOnIdleToggle.Click();
             }
 
+            if (ConfigurationState.Instance.ShowConsole)
+            {
+                _showConsole.Click();
+            }
+
             if (ConfigurationState.Instance.Graphics.EnableVsync)
             {
                 _vSyncToggle.Click();
@@ -231,6 +239,12 @@ namespace Ryujinx.Ui.Windows
             if (ConfigurationState.Instance.Ui.EnableCustomTheme)
             {
                 _custThemeToggle.Click();
+            }
+
+            //Hide specific-platform elements
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                _showConsole.Hide();
             }
 
             // Custom EntryCompletion Columns. If added to glade, need to override more signals
@@ -417,6 +431,7 @@ namespace Ryujinx.Ui.Windows
             ConfigurationState.Instance.CheckUpdatesOnStart.Value              = _checkUpdatesToggle.Active;
             ConfigurationState.Instance.ShowConfirmExit.Value                  = _showConfirmExitToggle.Active;
             ConfigurationState.Instance.HideCursorOnIdle.Value                 = _hideCursorOnIdleToggle.Active;
+            ConfigurationState.Instance.ShowConsole.Value                      = _showConsole.Active;
             ConfigurationState.Instance.Graphics.EnableVsync.Value             = _vSyncToggle.Active;
             ConfigurationState.Instance.Graphics.EnableShaderCache.Value       = _shaderCacheToggle.Active;
             ConfigurationState.Instance.System.EnablePtc.Value                 = _ptcToggle.Active;
@@ -440,6 +455,15 @@ namespace Ryujinx.Ui.Windows
             if (_audioBackendSelect.GetActiveIter(out TreeIter activeIter))
             {
                 ConfigurationState.Instance.System.AudioBackend.Value = (AudioBackend)_audioBackendStore.GetValue(activeIter, 1);
+            }
+
+            if (ConfigurationState.Instance.ShowConsole)
+            {
+                Platform.Instance.ShowConsole();
+            }
+            else
+            {
+                Platform.Instance.HideConsole();
             }
 
             ConfigurationState.Instance.ToFileFormat().SaveConfig(Program.ConfigurationPath);
