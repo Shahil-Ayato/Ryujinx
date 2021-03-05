@@ -503,6 +503,7 @@ namespace Ryujinx.Configuration
             System.EnableDockedMode.Value          = true;
             EnableDiscordIntegration.Value         = true;
             CheckUpdatesOnStart.Value              = true;
+            ShowConsole.Value                      = false;
             ShowConfirmExit.Value                  = true;
             HideCursorOnIdle.Value                 = false;
             ShowConsole.Value                      = true;
