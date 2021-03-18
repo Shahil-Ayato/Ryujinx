@@ -4,7 +4,7 @@ using Ryujinx.Audio.Backends.SDL2;
 using Ryujinx.Audio.Backends.SoundIo;
 using Ryujinx.Common.Configuration;
 using Ryujinx.Common.Configuration.Hid;
-using Ryujinx.Common.Platform;
+using Ryujinx.Common.System;
 using Ryujinx.Configuration;
 using Ryujinx.Configuration.System;
 using Ryujinx.HLE.FileSystem;
@@ -16,7 +16,6 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Runtime.InteropServices;
 
 using GUI = Gtk.Builder.ObjectAttribute;
 
@@ -270,7 +269,7 @@ namespace Ryujinx.Ui.Windows
             }
 
             // Hide specific-platform elements
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (!ConsoleHelper.IsHideSupported())
             {
                 _showConsole.Hide();
             }
@@ -508,11 +507,11 @@ namespace Ryujinx.Ui.Windows
 
             if (ConfigurationState.Instance.ShowConsole)
             {
-                Platform.Instance.ShowConsole();
+                ConsoleHelper.ShowConsole();
             }
             else
             {
-                Platform.Instance.HideConsole();
+                ConsoleHelper.HideConsole();
             }
 
             ConfigurationState.Instance.ToFileFormat().SaveConfig(Program.ConfigurationPath);
