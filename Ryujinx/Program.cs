@@ -137,11 +137,8 @@ namespace Ryujinx
             {
                 ConfigurationState.Instance.Ui.StartFullscreen.Value = true;
             }
-
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                ConsoleHelper.ToggleConsole();
-            }
+            
+            ConsoleHelper.ToggleConsole();
             
             // Logging system information.
             PrintSystemInfo();
