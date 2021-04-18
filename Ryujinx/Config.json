@@ -1,5 +1,5 @@
 {
-  "version": 24,
+  "version": 25,
   "enable_file_log": true,
   "res_scale": 1,
   "res_scale_custom": 1,
@@ -22,7 +22,6 @@
   "docked_mode": true,
   "enable_discord_integration": true,
   "check_updates_on_start": true,
-  "show_console": true,
   "show_confirm_exit": true,
   "hide_cursor_on_idle": false,
   "show_console": true,
