@@ -169,6 +169,7 @@
                                     <property name="position">3</property>
                                   </packing>
                                 </child>
+<<<<<<< HEAD
                                 <child>
                                   <object class="GtkCheckButton" id="_showConsole">
                                     <property name="label" translatable="yes">Show Console Window</property>
@@ -185,6 +186,8 @@
                                     <property name="position">4</property>
                                   </packing>
                                 </child>
+=======
+>>>>>>> parent of 7c186ed... config: add option to show/hide console
                               </object>
                               <packing>
                                 <property name="expand">True</property>

@@ -138,12 +138,13 @@ namespace Ryujinx
             {
                 ConfigurationState.Instance.Ui.StartFullscreen.Value = true;
             }
-
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                ConsoleHelper.ToggleConsole();
-            }
+<<<<<<< HEAD
             
+            ConsoleHelper.ToggleConsole();
+            
+=======
+
+>>>>>>> parent of 7c186ed... config: add option to show/hide console
             // Logging system information.
             PrintSystemInfo();
 

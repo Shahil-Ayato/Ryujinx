@@ -4,7 +4,10 @@ using Ryujinx.Audio.Backends.SDL2;
 using Ryujinx.Audio.Backends.SoundIo;
 using Ryujinx.Common.Configuration;
 using Ryujinx.Common.Configuration.Hid;
+<<<<<<< HEAD
 using Ryujinx.Common.System;
+=======
+>>>>>>> parent of 7c186ed... config: add option to show/hide console
 using Ryujinx.Configuration;
 using Ryujinx.Configuration.System;
 using Ryujinx.HLE.FileSystem;
@@ -15,7 +18,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+<<<<<<< HEAD
 using System.Runtime.InteropServices;
+=======
+>>>>>>> parent of 7c186ed... config: add option to show/hide console
 using System.Threading.Tasks;
 
 using GUI = Gtk.Builder.ObjectAttribute;
@@ -48,7 +54,6 @@ namespace Ryujinx.Ui.Windows
         [GUI] CheckButton     _checkUpdatesToggle;
         [GUI] CheckButton     _showConfirmExitToggle;
         [GUI] CheckButton     _hideCursorOnIdleToggle;
-        [GUI] CheckButton     _showConsole;
         [GUI] CheckButton     _vSyncToggle;
         [GUI] CheckButton     _shaderCacheToggle;
         [GUI] CheckButton     _ptcToggle;
@@ -201,11 +206,6 @@ namespace Ryujinx.Ui.Windows
                 _hideCursorOnIdleToggle.Click();
             }
 
-            if (ConfigurationState.Instance.ShowConsole)
-            {
-                _showConsole.Click();
-            }
-
             if (ConfigurationState.Instance.Graphics.EnableVsync)
             {
                 _vSyncToggle.Click();
@@ -264,12 +264,15 @@ namespace Ryujinx.Ui.Windows
                 _custThemeToggle.Click();
             }
 
+<<<<<<< HEAD
             // Hide specific-platform elements
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 _showConsole.Hide();
             }
 
+=======
+>>>>>>> parent of 7c186ed... config: add option to show/hide console
             // Custom EntryCompletion Columns. If added to glade, need to override more signals
             ListStore tzList = new ListStore(typeof(string), typeof(string), typeof(string));
             _systemTimeZoneCompletion.Model = tzList;
@@ -473,7 +476,6 @@ namespace Ryujinx.Ui.Windows
             ConfigurationState.Instance.CheckUpdatesOnStart.Value              = _checkUpdatesToggle.Active;
             ConfigurationState.Instance.ShowConfirmExit.Value                  = _showConfirmExitToggle.Active;
             ConfigurationState.Instance.HideCursorOnIdle.Value                 = _hideCursorOnIdleToggle.Active;
-            ConfigurationState.Instance.ShowConsole.Value                      = _showConsole.Active;
             ConfigurationState.Instance.Graphics.EnableVsync.Value             = _vSyncToggle.Active;
             ConfigurationState.Instance.Graphics.EnableShaderCache.Value       = _shaderCacheToggle.Active;
             ConfigurationState.Instance.System.EnablePtc.Value                 = _ptcToggle.Active;
@@ -500,12 +502,13 @@ namespace Ryujinx.Ui.Windows
             {
                 ConfigurationState.Instance.System.AudioBackend.Value = (AudioBackend)_audioBackendStore.GetValue(activeIter, 1);
             }
+<<<<<<< HEAD
             
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                ConsoleHelper.ToggleConsole();
-            }
+            ConsoleHelper.ToggleConsole();
             
+=======
+
+>>>>>>> parent of 7c186ed... config: add option to show/hide console
             ConfigurationState.Instance.ToFileFormat().SaveConfig(Program.ConfigurationPath);
             _parent.UpdateGraphicsConfig();
             ThemeHelper.ApplyTheme();
