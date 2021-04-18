@@ -186,11 +186,6 @@ namespace Ryujinx.Ui.Windows
                 _checkUpdatesToggle.Click();
             }
 
-            if (ConfigurationState.Instance.ShowConsole)
-            {
-                _showConsole.Click();
-            }
-
             if (ConfigurationState.Instance.ShowConfirmExit)
             {
                 _showConfirmExitToggle.Click();
@@ -461,9 +456,9 @@ namespace Ryujinx.Ui.Windows
             {
                 ConfigurationState.Instance.System.AudioBackend.Value = (AudioBackend)_audioBackendStore.GetValue(activeIter, 1);
             }
-
+            
             ConsoleHelper.ToggleConsole();
-
+            
             ConfigurationState.Instance.ToFileFormat().SaveConfig(Program.ConfigurationPath);
             _parent.UpdateGraphicsConfig();
             ThemeHelper.ApplyTheme();

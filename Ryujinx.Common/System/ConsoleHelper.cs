@@ -45,37 +45,39 @@ namespace Ryujinx.Common.System
 
         public static void ToggleConsole()
         {
-            if (ConfigurationState.Instance.ShowConsole)
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                if (AllocConsole())
+                if (ConfigurationState.Instance.ShowConsole)
                 {
-                    IntPtr stdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+                    if (AllocConsole())
+                    {
+                        IntPtr stdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 
-                    SafeFileHandle safeFileHandle = new SafeFileHandle(stdHandle, true);
-                    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                        SafeFileHandle safeFileHandle = new SafeFileHandle(stdHandle, true);
+                        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-                    FileStream fileStream = new FileStream(safeFileHandle, FileAccess.Write);
+                        FileStream fileStream = new FileStream(safeFileHandle, FileAccess.Write);
 
-                    Encoding encoding = Encoding.GetEncoding(MY_CODE_PAGE);
-                    StreamWriter standardOutput = new StreamWriter(fileStream, encoding);
-                    standardOutput.AutoFlush = true;
-                    Console.SetOut(standardOutput);
+                        Encoding encoding = Encoding.GetEncoding(MY_CODE_PAGE);
+                        StreamWriter standardOutput = new StreamWriter(fileStream, encoding);
+                        standardOutput.AutoFlush = true;
+                        Console.SetOut(standardOutput);
 
-                    safeFileHandle.Dispose();
-                    standardOutput.Dispose();
+                        safeFileHandle.Dispose();
+                        standardOutput.Dispose();
 
-                    Console.Title = $"Ryujinx Console {Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion}";
+                        Console.Title = $"Ryujinx Console {Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion}";
+                    }
+                    else if (GetCurrentProcessId() == GetWindowId())
+                    {
+                        ShowWindow(GetConsoleWindow(), SW_SHOW);
+                    }
                 }
                 else if (GetCurrentProcessId() == GetWindowId())
                 {
-                    ShowWindow(GetConsoleWindow(), SW_SHOW);
-                }
-            }
-            else
-            {
-                if (GetCurrentProcessId() == GetWindowId())
-                {
-                    ShowWindow(GetConsoleWindow(), SW_HIDE);
+                    {
+                        ShowWindow(GetConsoleWindow(), SW_HIDE);
+                    }
                 }
             }
         }
